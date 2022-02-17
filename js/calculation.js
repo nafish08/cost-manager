@@ -1,7 +1,9 @@
 // Input field string to number convert
 function convertInputExpense(idName) {
-  const input = document.getElementById(idName).value;
-  const amount = parseFloat(input);
+  const input = document.getElementById(idName);
+  const inputValue = input.value;
+  const amount = parseFloat(inputValue);
+  input.value = "";
   return amount;
 }
 
@@ -10,27 +12,35 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
   const rentAmount = convertInputExpense("inputRent");
   const clothesAmount = convertInputExpense("inputClothes");
 
-  //Total Expense
-  const totalAmount = foodAmount + rentAmount + clothesAmount;
+  if (foodAmount >= 0 && rentAmount >= 0 && clothesAmount >= 0) {
+    //Total Expense
+    const totalAmount = foodAmount + rentAmount + clothesAmount;
 
-  const incomeInput = document.getElementById("inputIncome").value;
+    const incomeInput = document.getElementById("inputIncome").value;
 
-  //Get and Update total expenses
+    if (totalAmount <= incomeInput) {
+      //Get and Update total expenses
 
-  const expenseTotal = document.getElementById("expenseTotal");
-  const expenseTotalText = expenseTotal.innerText;
-  const previousExpensesTotal = parseFloat(expenseTotalText);
+      const expenseTotal = document.getElementById("expenseTotal");
+      const expenseTotalText = expenseTotal.innerText;
+      const previousExpensesTotal = parseFloat(expenseTotalText);
 
-  const balanceTotal = document.getElementById("balanceTotal");
-  const balanceTotalText = parseFloat(balanceTotal.innerText);
-  const previousBalanceTotal = parseFloat(balanceTotalText);
+      const balanceTotal = document.getElementById("balanceTotal");
+      const balanceTotalText = parseFloat(balanceTotal.innerText);
+      const previousBalanceTotal = parseFloat(balanceTotalText);
 
-  //Total Expense
-  expenseTotal.innerText = previousExpensesTotal + totalAmount;
+      //Total Expense
+      expenseTotal.innerText = previousExpensesTotal + totalAmount;
 
-  //Balance
-  const newBalance = incomeInput - totalAmount;
-  balanceTotal.innerText = previousBalanceTotal + newBalance;
+      //Balance
+      const newBalance = incomeInput - totalAmount;
+      balanceTotal.innerText = previousBalanceTotal + newBalance;
+    } else {
+      alert("Please purchase in your budget!");
+    }
+  } else {
+    alert("Please Enter a Valid Number!");
+  }
 });
 
 // For Saving
