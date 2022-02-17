@@ -10,6 +10,7 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
   const rentAmount = convertInputExpense("inputRent");
   const clothesAmount = convertInputExpense("inputClothes");
 
+  //Total Expense
   const totalAmount = foodAmount + rentAmount + clothesAmount;
 
   const incomeInput = document.getElementById("inputIncome").value;
@@ -24,7 +25,10 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
   const balanceTotalText = parseFloat(balanceTotal.innerText);
   const previousBalanceTotal = parseFloat(balanceTotalText);
 
+  //Total Expense
   expenseTotal.innerText = previousExpensesTotal + totalAmount;
+
+  //Balance
   const newBalance = incomeInput - totalAmount;
   balanceTotal.innerText = previousBalanceTotal + newBalance;
 });
@@ -32,15 +36,25 @@ document.getElementById("calculate-btn").addEventListener("click", function () {
 // For Saving
 document.getElementById("save-btn").addEventListener("click", function () {
   const incomeInput = document.getElementById("inputIncome").value;
+
   const saveInput = document.getElementById("inputSave").value;
-  const savePercent = parseFloat(saveInput);
+  const savingPerchantage = parseFloat(saveInput);
 
-  //Get and Update Saving
+  //Get balance and saving amount
+
+  const balanceTotal = document.getElementById("balanceTotal");
+  const balanceTotalText = parseFloat(balanceTotal.innerText);
+
+  const balanceRemaining = document.getElementById("remainTotal");
+
+  //Get and Update saving amount
   const savingAmount = document.getElementById("saveTotal");
-  //   const savingAmountText = parseFloat(savingAmount.innerText);
 
-  var savingValue = savePercent / 100;
-  savingAmount.innerText = savingValue * incomeInput;
+  //Saving Amount
+  var savingscalc = savingPerchantage / 100;
+  const a = savingscalc * incomeInput;
+  savingAmount.innerText = a;
 
-  //Get and Update Remaing
+  // Remaining Balance
+  balanceRemaining.innerText = balanceTotalText - a;
 });
